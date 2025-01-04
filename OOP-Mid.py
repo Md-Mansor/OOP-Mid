@@ -5,8 +5,7 @@ class Book:
         self.__author = author
         self.__availability = availability
 
-    def borrow_book(self,book_id):
-
+    def borrow_book(self):
         if self.__availability:
             self.__availability = False
             print(f"The book '{self.__title}' has been borrowed.")
@@ -39,12 +38,19 @@ class Library:
         for book in self.__book_list:
             book.view_book_info()
 
+    def borrow_book(self, book_id):
+        for book in self.__book_list:
+            if book.__book_id == book_id:
+                book.borrow_book()
 
-# Example Usage
-# Creating a library instance
+    def return_book(self, book_id):
+        for book in self.__book_list:
+            if book.__book_id() == book_id:
+                book.return_book()
+                return
+
+
 library = Library()
-
-# Adding books to the library
 library.entry_book(1, "1984", "George Orwell")
 library.entry_book(2, "To Kill a Mockingbird", "Harper Lee")
 
@@ -53,8 +59,17 @@ while True:
     print("2. Borrow Book")
     print("3. Return Book")
     print("4. Exit")
-    choice=int(input("Inter Your Choice: "))
-    if choice==1:
+    choice = int(input("Inter Your Choice: "))
+    if choice == 1:
         library.view_books()
-    elif choice==2:
-        # library.
+    elif choice == 2:
+        Id = int(input("Enter Book Id For Borrow: "))
+        library.borrow_book(Id)
+    elif choice == 3:
+        Id = int(input("Enter Book Id For Return: "))
+        library.return_book(Id)
+    elif choice == 4:
+        print("Exit From Library")
+        break
+    else:
+        print("Invalid Choice. Please Try Again")
